@@ -26,3 +26,50 @@ function computerPlay() {
     }
     return result;
 }
+
+//define a function playRound with two args: playerChoice, computerChoice
+//playerSelection needs to be case-insensetive
+//return a string that declares the winner, use template literals
+//define variables for user input and computer input
+
+const playerChoice = 'ROcK';
+const computerChoice = computerPlay();
+
+function playRound(playerChoice, computerChoice) {
+    let a = `${paper} beats ${rock}.`;
+    let b = `${rock} beats ${scissors}.`;
+    let c = `${scissors} beats ${paper}.`;
+
+    switch (true) {
+        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === scissors:
+            return `You win! ` + b;
+            break;
+        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === paper:
+            return `You lose. ` + a;
+            break;
+        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === rock:
+            return 'It\'s a draw.';
+            break;
+        case playerChoice.toUpperCase() === paper.toUpperCase() && computerChoice === rock:
+            return `You win! ` + a;
+            break;
+        case playerChoice.toUpperCase() === paper.toUpperCase() && computerChoice == scissors:
+            return `You lose. ` + c;
+            break;
+        case playerChoice.toUpperCase() === paper.toUpperCase() && computerChoice == paper:
+            return 'It\'s a draw.';
+            break;
+        case playerChoice.toUpperCase() === scissors.toUpperCase() && computerChoice === paper:
+            return `You win! ` + c;
+            break;
+        case playerChoice.toUpperCase() === scissors.toUpperCase() && computerChoice === rock:
+            return `You lose. ` + b;
+            break;
+        case playerChoice.toUpperCase() === scissors.toUpperCase() && computerChoice === scissors:
+            return 'In\'s a draw.';
+            break;
+        default:
+            return 'Invalid action recieved.';
+            break;
+    }
+}
