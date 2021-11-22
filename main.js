@@ -3,15 +3,21 @@ console.log('Privet, Mir!');
 //define a function computerPlay()
 //create variables 'Rock', 'Paper', 'Scissors'
 //return a random value
-//create variable with random int => based on its result, return one of the variables above
+//create variable with random int
+//based on its result, return one of the variables above
 
 const rock = 'Rock';
 const paper = 'Paper';
 const scissors = 'Scissors';
 
+const playerChoice = promptInput();
+const computerChoice = computerPlay();
+
+let countPlayer = 0;
+let countComputer = 0;
+
 function computerPlay() {
     let result = '';
-//generate int from 0 to 2
     let num = Math.floor(Math.random()*3);
     switch (num) {
         case 0:
@@ -27,49 +33,55 @@ function computerPlay() {
     return result;
 }
 
-//define a function playRound with two args: playerChoice, computerChoice
+function promptInput() {
+    let data = prompt('Enter either "Rock", "Paper" or "Scissor":');
+    return data;
+};
+
+//define a function playRound() with two args: playerChoice, computerChoice
 //playerSelection needs to be case-insensetive
 //return a string that declares the winner, use template literals
 //define variables for user input and computer input
 
-const playerChoice = 'ROcK';
-const computerChoice = computerPlay();
+//define function game()
+//use playRound() inside than funcnion
+//use loop to make a five iterations and keep score in a variable
+//use console.log() to display results of each round
+
+function game() {
+    return playRound(playerChoice, computerChoice);
+}
 
 function playRound(playerChoice, computerChoice) {
-    let a = `${paper} beats ${rock}.`;
-    let b = `${rock} beats ${scissors}.`;
-    let c = `${scissors} beats ${paper}.`;
 
     switch (true) {
-        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === scissors:
-            return `You win! ` + b;
-            break;
-        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === paper:
-            return `You lose. ` + a;
-            break;
-        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === rock:
-            return 'It\'s a draw.';
-            break;
         case playerChoice.toUpperCase() === paper.toUpperCase() && computerChoice === rock:
-            return `You win! ` + a;
-            break;
-        case playerChoice.toUpperCase() === paper.toUpperCase() && computerChoice == scissors:
-            return `You lose. ` + c;
-            break;
-        case playerChoice.toUpperCase() === paper.toUpperCase() && computerChoice == paper:
-            return 'It\'s a draw.';
-            break;
+            countPlayer += 1;
+            return `You win! ${paper} beats ${rock}!`;
+        
+        case playerChoice.toUpperCase() === paper.toUpperCase() && computerChoice === scissors:
+            countComputer += 1;
+            return `You lose! ${scissors} beats ${paper}!`;
+        
         case playerChoice.toUpperCase() === scissors.toUpperCase() && computerChoice === paper:
-            return `You win! ` + c;
-            break;
+            countPlayer += 1;
+            return `You win! ${scissors} beats ${paper}`;
+        
         case playerChoice.toUpperCase() === scissors.toUpperCase() && computerChoice === rock:
-            return `You lose. ` + b;
-            break;
-        case playerChoice.toUpperCase() === scissors.toUpperCase() && computerChoice === scissors:
-            return 'In\'s a draw.';
-            break;
-        default:
-            return 'Invalid action recieved.';
-            break;
+            countComputer += 1;
+            return `You lose! ${rock} beats ${scissors}`;
+        
+        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === scissors:
+            countPlayer += 1;
+            return `You win! ${rock} beats ${scissors}`;
+        
+        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === paper:
+            countComputer += 1
+            return `You lose! ${paper} beats ${rock}`;
+
+        case playerChoice.toUpperCase() === computerChoice.toUpperCase():
+            return 'It\'s a toe.';
     }
 }
+
+console.log(game());
