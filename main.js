@@ -2,23 +2,27 @@ console.log('Privet, Mir!');
 
 //define a function computerPlay()
 //create variables 'Rock', 'Paper', 'Scissors'
-//return a random value
+//the function must return a random value
 //create variable with random int
 //based on its result, return one of the variables above
 
-const rock = 'Rock';
-const paper = 'Paper';
-const scissors = 'Scissors';
+function getPlayerChoice() {
+    
+    let result = prompt('Choose either "Rock", "Paper" or "Scissors":');
+    
+    return result.toUpperCase();
+}
 
-const playerChoice = promptInput();
-const computerChoice = computerPlay();
+function getCpuChoice() {
+    
+    const rock = 'Rock';
+    const paper = 'Paper';
+    const scissors = 'Scissors';
 
-let countPlayer = 0;
-let countComputer = 0;
-
-function computerPlay() {
     let result = '';
+    
     let num = Math.floor(Math.random()*3);
+    
     switch (num) {
         case 0:
             result += rock;
@@ -30,18 +34,64 @@ function computerPlay() {
             result += scissors;
             break;
     }
-    return result;
+    return result.toUpperCase();
 }
-
-function promptInput() {
-    let data = prompt('Enter either "Rock", "Paper" or "Scissor":');
-    return data;
-};
 
 //define a function playRound() with two args: playerChoice, computerChoice
 //playerSelection needs to be case-insensetive
 //return a string that declares the winner, use template literals
 //define variables for user input and computer input
+
+function playRound(playerChoice, cpuChoice)  {
+
+//    let cpuChoice = getCpuChoice();
+
+    const variant_a = `${playerChoice} beats ${cpuChoice}!`;
+    const variant_b = `${cpuChoice} beats ${playerChoice}!`;
+    const variant_c = `${cpuChoice} beats ${playerChoice}!`;
+
+    let result = '';
+
+    countPlayer = 0;
+    countCpu = 0;
+    
+    switch (true) {
+        case playerChoice === 'PAPER' && cpuChoice === 'ROCK':
+            countPlayer++;
+            result += `You win! ` + ;
+            break;
+        
+        case playerChoice === 'PAPER' && cpuChoice === 'SCISSORS':
+            countCpu++;
+            result += `You lose! ` + ;
+            break;
+        
+        case playerChoice === 'SCISSORS' && cpuChoice === 'PAPER':
+            countPlayer++;
+            result += `You win! ` + ;
+            break;
+        
+        case playerChoice === 'SCISSORS' && cpuChoice === 'ROCK':
+            countCpu++;
+            result += `You lose! ` + ;
+            break;
+        
+        case playerChoice === 'ROCK' && cpuChoice === 'SCISSORS':
+            countPlayer++;
+            result += `You win! ` + ;
+            break;
+        
+        case playerChoice === 'ROCK' && cpuChoice === 'PAPER':
+            countCpu++;
+            result += `You lose! ` + ;
+            break;
+        
+        case playerChoice === cpuChoice:
+            result += 'It\'s a tie.';
+            break;
+    }
+    return result;
+}
 
 //define function game()
 //use playRound() inside than funcnion
@@ -49,39 +99,16 @@ function promptInput() {
 //use console.log() to display results of each round
 
 function game() {
-    return playRound(playerChoice, computerChoice);
-}
+    
+    let result = '';
+    
+    while (true) {
+        result = playRound(getPlayerChoice(), getCpuChoice());
+        console.log(`the round result is: ${result}`);
 
-function playRound(playerChoice, computerChoice) {
-
-    switch (true) {
-        case playerChoice.toUpperCase() === paper.toUpperCase() && computerChoice === rock:
-            countPlayer += 1;
-            return `You win! ${paper} beats ${rock}!`;
-        
-        case playerChoice.toUpperCase() === paper.toUpperCase() && computerChoice === scissors:
-            countComputer += 1;
-            return `You lose! ${scissors} beats ${paper}!`;
-        
-        case playerChoice.toUpperCase() === scissors.toUpperCase() && computerChoice === paper:
-            countPlayer += 1;
-            return `You win! ${scissors} beats ${paper}`;
-        
-        case playerChoice.toUpperCase() === scissors.toUpperCase() && computerChoice === rock:
-            countComputer += 1;
-            return `You lose! ${rock} beats ${scissors}`;
-        
-        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === scissors:
-            countPlayer += 1;
-            return `You win! ${rock} beats ${scissors}`;
-        
-        case playerChoice.toUpperCase() === rock.toUpperCase() && computerChoice === paper:
-            countComputer += 1
-            return `You lose! ${paper} beats ${rock}`;
-
-        case playerChoice.toUpperCase() === computerChoice.toUpperCase():
-            return 'It\'s a toe.';
+        if (countPlayer === 3 || countCpu === 3) {
+            break;
+        }
     }
+    return `the final result is: ${result}`;
 }
-
-console.log(game());
