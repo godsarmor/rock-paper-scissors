@@ -6,37 +6,6 @@ console.log('Privet, Mir!');
 //create variable with random int
 //based on its result, return one of the variables above
 
-function getPlayerChoice() {
-    
-    let result = prompt('Enter either \"ROCK\", \"PAPER\" or \"SCISSORS\":');
-    return result.toUpperCase();
-}
-
-function getCpuChoice() {
-    
-    //may not needed, but I'd like to keep them  
-    const rock = 'ROCK';
-    const paper = 'PAPER';
-    const scissors = 'SCISSORS';
-
-    let result = '';
-    
-    let num = Math.floor(Math.random()*3);
-    
-    switch (num) {
-        case 0:
-            result += rock;
-            break;
-        case 1:
-            result += paper;
-            break;
-        case 2:
-            result += scissors;
-            break;
-    }
-    return result;
-}
-
 //define a function playRound() with two args: playerChoice, computerChoice
 //playerSelection needs to be case-insensetive
 //return a string that declares the winner, use template literals
@@ -49,61 +18,64 @@ function getCpuChoice() {
 
 function game() {
     
+    const rock = 'ROCK';
+    const paper = 'PAPER';
+    const scissors = 'SCISSORS';
+
     let result = '';
         
     let countPlayer = 0;
     let countCpu = 0;
 
-    while (true) {
-        result = playRound(getPlayerChoice(), getCpuChoice());
-        console.log(`the round result is: ${result}`);
+    let getPlayerChoice = () => {
+    
+        let result = prompt('Enter either \"ROCK\", \"PAPER\" or \"SCISSORS\":');
+        return result.toUpperCase();
+    }
 
-        if (countPlayer === 3 || countCpu === 3) {
-            break;
+    let getCpuChoice = () => {
+    
+        let result = '';
+        
+        let num = Math.floor(Math.random()*3);
+        
+        switch (num) {
+            case 0:
+                result += rock;
+                break;
+            case 1:
+                result += paper;
+                break;
+            case 2:
+                result += scissors;
+                break;
         }
+        return result;
     }
 
     function playRound(playerChoice, cpuChoice)  {
         
-        const variant_a = `${playerChoice} beats ${cpuChoice}!`;
-        const variant_b = `${cpuChoice} beats ${playerChoice}!`;
-        
         let result = '';
         
-        //TODO: group values by 
         switch (true) {
-            case playerChoice === 'PAPER' && cpuChoice === 'ROCK':
+            case playerChoice === paper && cpuChoice === rock ||
+                    playerChoice === scissors && cpuChoice === paper ||
+                    playerChoice === rock && cpuChoice === scissors:
+                
                 countPlayer++;
-                result += `You win! ` + variant_a;
+                result += `You win! ${playerChoice} beats ${cpuChoice}!`;
                 break;
                 
-            case playerChoice === 'PAPER' && cpuChoice === 'SCISSORS':
+            case playerChoice === paper && cpuChoice === scissors ||
+                    playerChoice === scissors && cpuChoice === rock ||
+                    playerChoice === rock && cpuChoice === paper:
+                
                 countCpu++;
-                result += `You lose! ` + variant_b;
+                result += `You lose! ${cpuChoice} beats ${playerChoice}!`;
                 break;
-                
-            case playerChoice === 'SCISSORS' && cpuChoice === 'PAPER':
-                countPlayer++;
-                result += `You win! ` + variant_a;
-                break;
-                
-            case playerChoice === 'SCISSORS' && cpuChoice === 'ROCK':
-                countCpu++;
-                result += `You lose! ` + variant_b;
-                break;
-                
-            case playerChoice === 'ROCK' && cpuChoice === 'SCISSORS':
-                countPlayer++;
-                result += `You win! ` + variant_a;
-                break;
-                
-            case playerChoice === 'ROCK' && cpuChoice === 'PAPER':
-                countCpu++;
-                result += `You lose! ` + variant_b;
-                break;
-                
+
             case playerChoice === cpuChoice:
-                result += 'It\'s a tie.';
+                result += 'It\'s a tie!';
                 break;
                 
             default:
@@ -113,5 +85,13 @@ function game() {
         return result;
     }
 
+    while (true) {
+        result = playRound(getPlayerChoice(), getCpuChoice());
+        console.log(`the round result is: ${result}`);
+
+        if (countPlayer === 3 || countCpu === 3) {
+            break;
+        }
+    }
     return `the final result is: ${result}`;
 }
