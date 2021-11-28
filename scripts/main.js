@@ -8,12 +8,13 @@ console.log('Privet, Mir!');
 
 function getPlayerChoice() {
     
-    let result = prompt('Enter either "ROCK", "PAPER" or "SCISSORS":');
+    let result = prompt('Enter either \"ROCK\", \"PAPER\" or \"SCISSORS\":');
     return result.toUpperCase();
 }
 
 function getCpuChoice() {
     
+    //may not needed, but I'd like to keep them  
     const rock = 'ROCK';
     const paper = 'PAPER';
     const scissors = 'SCISSORS';
@@ -49,7 +50,7 @@ function getCpuChoice() {
 function game() {
     
     let result = '';
-    
+        
     let countPlayer = 0;
     let countCpu = 0;
 
@@ -68,7 +69,8 @@ function game() {
         const variant_b = `${cpuChoice} beats ${playerChoice}!`;
         
         let result = '';
-            
+        
+        //TODO: group values by 
         switch (true) {
             case playerChoice === 'PAPER' && cpuChoice === 'ROCK':
                 countPlayer++;
@@ -105,7 +107,7 @@ function game() {
                 break;
                 
             default:
-                result += 'error: Enter either "ROCK", "PAPER" or "SCISSORS"!';
+                result += 'error: Enter either \"ROCK\", \"PAPER\" or \"SCISSORS\"!';
                 break;
         }
         return result;
