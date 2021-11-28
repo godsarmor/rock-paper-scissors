@@ -47,8 +47,7 @@ function playRound(playerChoice, cpuChoice)  {
 //    let cpuChoice = getCpuChoice();
 
     const variant_a = `${playerChoice} beats ${cpuChoice}!`;
-    const variant_b = `${cpuChoice} beats ${playerChoice}!`;
-    const variant_c = `${cpuChoice} beats ${playerChoice}!`;
+    const variant_b = `${playerChoice} beats ${cpuChoice}!`;
 
     let result = '';
 
@@ -58,36 +57,40 @@ function playRound(playerChoice, cpuChoice)  {
     switch (true) {
         case playerChoice === 'PAPER' && cpuChoice === 'ROCK':
             countPlayer++;
-            result += `You win! ` + ;
+            result += `You win! ` + variant_a;
             break;
         
         case playerChoice === 'PAPER' && cpuChoice === 'SCISSORS':
             countCpu++;
-            result += `You lose! ` + ;
+            result += `You lose! ` + variant_b;
             break;
         
         case playerChoice === 'SCISSORS' && cpuChoice === 'PAPER':
             countPlayer++;
-            result += `You win! ` + ;
+            result += `You win! ` + variant_a;
             break;
         
         case playerChoice === 'SCISSORS' && cpuChoice === 'ROCK':
             countCpu++;
-            result += `You lose! ` + ;
+            result += `You lose! ` + variant_b;
             break;
         
         case playerChoice === 'ROCK' && cpuChoice === 'SCISSORS':
             countPlayer++;
-            result += `You win! ` + ;
+            result += `You win! ` + variant_a;
             break;
         
         case playerChoice === 'ROCK' && cpuChoice === 'PAPER':
             countCpu++;
-            result += `You lose! ` + ;
+            result += `You lose! ` + variant_b;
             break;
         
         case playerChoice === cpuChoice:
             result += 'It\'s a tie.';
+            break;
+        
+        default:
+            result += 'error: Invalid value (input is outside of array)';
             break;
     }
     return result;
