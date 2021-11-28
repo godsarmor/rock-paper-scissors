@@ -8,16 +8,15 @@ console.log('Privet, Mir!');
 
 function getPlayerChoice() {
     
-    let result = prompt('Choose either "Rock", "Paper" or "Scissors":');
-    
+    let result = prompt('Enter either "ROCK", "PAPER" or "SCISSORS":');
     return result.toUpperCase();
 }
 
 function getCpuChoice() {
     
-    const rock = 'Rock';
-    const paper = 'Paper';
-    const scissors = 'Scissors';
+    const rock = 'ROCK';
+    const paper = 'PAPER';
+    const scissors = 'SCISSORS';
 
     let result = '';
     
@@ -34,67 +33,13 @@ function getCpuChoice() {
             result += scissors;
             break;
     }
-    return result.toUpperCase();
+    return result;
 }
 
 //define a function playRound() with two args: playerChoice, computerChoice
 //playerSelection needs to be case-insensetive
 //return a string that declares the winner, use template literals
 //define variables for user input and computer input
-
-function playRound(playerChoice, cpuChoice)  {
-
-//    let cpuChoice = getCpuChoice();
-
-    const variant_a = `${playerChoice} beats ${cpuChoice}!`;
-    const variant_b = `${playerChoice} beats ${cpuChoice}!`;
-
-    let result = '';
-
-    countPlayer = 0;
-    countCpu = 0;
-    
-    switch (true) {
-        case playerChoice === 'PAPER' && cpuChoice === 'ROCK':
-            countPlayer++;
-            result += `You win! ` + variant_a;
-            break;
-        
-        case playerChoice === 'PAPER' && cpuChoice === 'SCISSORS':
-            countCpu++;
-            result += `You lose! ` + variant_b;
-            break;
-        
-        case playerChoice === 'SCISSORS' && cpuChoice === 'PAPER':
-            countPlayer++;
-            result += `You win! ` + variant_a;
-            break;
-        
-        case playerChoice === 'SCISSORS' && cpuChoice === 'ROCK':
-            countCpu++;
-            result += `You lose! ` + variant_b;
-            break;
-        
-        case playerChoice === 'ROCK' && cpuChoice === 'SCISSORS':
-            countPlayer++;
-            result += `You win! ` + variant_a;
-            break;
-        
-        case playerChoice === 'ROCK' && cpuChoice === 'PAPER':
-            countCpu++;
-            result += `You lose! ` + variant_b;
-            break;
-        
-        case playerChoice === cpuChoice:
-            result += 'It\'s a tie.';
-            break;
-        
-        default:
-            result += 'error: Invalid value (input is outside of array)';
-            break;
-    }
-    return result;
-}
 
 //define function game()
 //use playRound() inside than funcnion
@@ -105,6 +50,9 @@ function game() {
     
     let result = '';
     
+    let countPlayer = 0;
+    let countCpu = 0;
+
     while (true) {
         result = playRound(getPlayerChoice(), getCpuChoice());
         console.log(`the round result is: ${result}`);
@@ -113,5 +61,55 @@ function game() {
             break;
         }
     }
+
+    function playRound(playerChoice, cpuChoice)  {
+        
+        const variant_a = `${playerChoice} beats ${cpuChoice}!`;
+        const variant_b = `${cpuChoice} beats ${playerChoice}!`;
+        
+        let result = '';
+            
+        switch (true) {
+            case playerChoice === 'PAPER' && cpuChoice === 'ROCK':
+                countPlayer++;
+                result += `You win! ` + variant_a;
+                break;
+                
+            case playerChoice === 'PAPER' && cpuChoice === 'SCISSORS':
+                countCpu++;
+                result += `You lose! ` + variant_b;
+                break;
+                
+            case playerChoice === 'SCISSORS' && cpuChoice === 'PAPER':
+                countPlayer++;
+                result += `You win! ` + variant_a;
+                break;
+                
+            case playerChoice === 'SCISSORS' && cpuChoice === 'ROCK':
+                countCpu++;
+                result += `You lose! ` + variant_b;
+                break;
+                
+            case playerChoice === 'ROCK' && cpuChoice === 'SCISSORS':
+                countPlayer++;
+                result += `You win! ` + variant_a;
+                break;
+                
+            case playerChoice === 'ROCK' && cpuChoice === 'PAPER':
+                countCpu++;
+                result += `You lose! ` + variant_b;
+                break;
+                
+            case playerChoice === cpuChoice:
+                result += 'It\'s a tie.';
+                break;
+                
+            default:
+                result += 'error: Enter either "ROCK", "PAPER" or "SCISSORS"!';
+                break;
+        }
+        return result;
+    }
+
     return `the final result is: ${result}`;
 }
