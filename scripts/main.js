@@ -53,7 +53,7 @@ function game() {
         return result;
     }
 
-    function playRound(playerChoice, cpuChoice)  {
+    let playRound = (playerChoice, cpuChoice) => {
         
         let result = '';
         
