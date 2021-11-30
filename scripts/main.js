@@ -18,80 +18,80 @@ console.log('Privet, Mir!');
 
 function game() {
     
-    const rock = 'ROCK';
-    const paper = 'PAPER';
-    const scissors = 'SCISSORS';
+    const strRock = 'ROCK';
+    const strPaper = 'PAPER';
+    const strScissors = 'SCISSORS';
 
-    let result = '';
+    let strResult = '';
         
-    let countPlayer = 0;
-    let countCpu = 0;
+    let intCountPlayer = 0;
+    let intCountCpu = 0;
 
     let getPlayerChoice = () => {
     
-        let result = prompt('Enter either \"ROCK\", \"PAPER\" or \"SCISSORS\":');
+        let result = prompt(`Enter either ${strRock}, ${strPaper} or ${strScissors}:`);
         return result.toUpperCase();
     }
 
     let getCpuChoice = () => {
     
-        let result = '';
+        let strResult = '';
         
-        let num = Math.floor(Math.random()*3);
+        let intNum = Math.floor(Math.random()*3);
         
-        switch (num) {
+        switch (intNum) {
             case 0:
-                result += rock;
+                result += strRock;
                 break;
             case 1:
-                result += paper;
+                result += strPaper;
                 break;
             case 2:
-                result += scissors;
+                result += strScissors;
                 break;
         }
-        return result;
+        return strResult;
     }
 
     let playRound = (playerChoice, cpuChoice) => {
         
-        let result = '';
+        let strResult = '';
         
         switch (true) {
-            case playerChoice === paper && cpuChoice === rock ||
-                    playerChoice === scissors && cpuChoice === paper ||
-                    playerChoice === rock && cpuChoice === scissors:
+            case playerChoice === strPaper && cpuChoice === strRock ||
+                    playerChoice === strScissors && cpuChoice === strPaper ||
+                    playerChoice === strRock && cpuChoice === strScissors:
                 
-                countPlayer++;
-                result += `You win! ${playerChoice} beats ${cpuChoice}!`;
+                intCountPlayer++;
+                strResult += `You win! ${playerChoice} beats ${cpuChoice}!`;
                 break;
                 
-            case playerChoice === paper && cpuChoice === scissors ||
-                    playerChoice === scissors && cpuChoice === rock ||
-                    playerChoice === rock && cpuChoice === paper:
+            case playerChoice === strPaper && cpuChoice === strScissors ||
+                    playerChoice === strScissors && cpuChoice === strRock ||
+                    playerChoice === strRock && cpuChoice === strPaper:
                 
-                countCpu++;
-                result += `You lose! ${cpuChoice} beats ${playerChoice}!`;
+                intCountCpu++;
+                strResult += `You lose! ${cpuChoice} beats ${playerChoice}!`;
                 break;
 
             case playerChoice === cpuChoice:
-                result += 'It\'s a tie!';
+                strResult += 'It\'s a tie!';
                 break;
                 
             default:
-                result += 'error: Enter either \"ROCK\", \"PAPER\" or \"SCISSORS\"!';
+                strResult += `error: Wrong value! Enter either ${strRock}, ${strPaper} or ${strScissors}.`;
                 break;
         }
-        return result;
+        return strResult;
     }
 
     while (true) {
-        result = playRound(getPlayerChoice(), getCpuChoice());
-        console.log(`the round result is: ${result}`);
+        strResult = playRound(getPlayerChoice(), getCpuChoice());
+        console.log(`the round result is: ${strResult}`);
 
-        if (countPlayer === 3 || countCpu === 3) {
+        if (intCountPlayer === 3 || intCountCpu === 3) {
             break;
         }
     }
-    return `the final result is: ${result}`;
+    return `the final result is: ${strResult}`;
 }
