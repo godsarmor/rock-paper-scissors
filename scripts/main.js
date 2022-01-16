@@ -16,62 +16,59 @@ console.log('Privet, Mir!');
 //use loop to make a five iterations and keep score in a variable
 //use console.log() to display results of each round
 
-const getPlayerChoice = () => i = prompt(`ROCK, PAPER or SCISSORS?`).toUpperCase();
-
-function game() 
-{
+const start = function game() {
     const array = ['ROCK', 'PAPER', 'SCISSORS'];
-    const counter = 
-    {
-        player: 0,
-        cpu: 0
+    const counter = {
+      player: 0,
+      cpu: 0,
     };
-    
-    const getCpuChoice = () => 
-    {
-        const random = Math.floor(Math.random()*array.length);
-        return array[random];
+  
+    const getPlayerChoice = () => window.prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
+  
+    const getCpuChoice = () => {
+      const random = Math.floor(Math.random() * array.length);
+      return array[random];
+    };
+  
+    const play = function playRound(...args) {
+      let combination = '';
+      switch (!false) {
+        case (args[0] === array[1] && args[1] === array[0])
+                      || (args[0] === array[2] && args[1] === array[1])
+                      || (args[0] === array[0] && args[1] === array[2]):
+  
+          counter.player += 1;
+          combination += `You win, ${args[0]} beats ${args[1]}!`;
+          break;
+  
+        case (args[0] === array[1] && args[1] === array[2])
+                      || (args[0] === array[2] && args[1] === array[0])
+                      || (args[0] === array[0] && args[1] === array[1]):
+  
+          counter.cpu += 1;
+          combination += `You lose, ${args[1]} beats ${args[0]}!`;
+          break;
+  
+        case args[0] === args[1]:
+          return 'It\'s a tie!';
+  
+        default:
+          return 'error: Wrong value!';
+      }
+  
+      return `End of round! ${combination}`;
     };
 
-    const playRound = (playerChoice, cpuChoice) => 
-    {
-        let combination = '';
-        switch (true) 
-        {
-            case playerChoice === array[1] && cpuChoice === array[0] ||
-                    playerChoice === array[2] && cpuChoice === array[1] ||
-                    playerChoice === array[0] && cpuChoice === array[2]:
-                
-                ++counter.player;
-                combination += `You win, ${playerChoice} beats ${cpuChoice}!`;
-                break;
-                
-            case playerChoice === array[1] && cpuChoice === array[2] ||
-                    playerChoice === array[2] && cpuChoice === array[0] ||
-                    playerChoice === array[0] && cpuChoice === array[1]:
-                
-                ++counter.cpu;
-                combination += `You lose, ${cpuChoice} beats ${playerChoice}!`;
-                break;
-
-            case playerChoice === cpuChoice:
-                return 'It\'s a tie!';
-                
-            default:
-                return 'error: Wrong value!';
+    const rotate = function checkWinner() {
+        let final = '';
+        while (!false) {
+            final = play(getPlayerChoice(), getCpuChoice());
+            // for debugging
+            console.log(final);
+            if (counter.player > 2 || counter.cpu > 2) break;
         }
-
-        return `End of round! ${combination}`;
+        return final;
     };
-
-    let result = '';
-
-    while (true)
-    {
-        result = playRound(getPlayerChoice(), getCpuChoice());
-        console.log(result);
-        if (counter.player > 2 || counter.cpu > 2) break;
-    }
-
-    return `The final result is: ${result}`;
-}
+  
+   return `the final is: ${rotate()}`;
+};
