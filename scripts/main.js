@@ -21,10 +21,13 @@ const start = function game() {
     const counter = {
       player: 0,
       cpu: 0,
+      state: ''
     };
   
-    const getPlayerChoice = () => window.prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
-  
+    const getPlayerChoice = () => {
+        return window.prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
+    };
+
     const getCpuChoice = () => {
       const random = Math.floor(Math.random() * array.length);
       return array[random];
@@ -32,7 +35,7 @@ const start = function game() {
   
     const play = function playRound(...args) {
       let combination = '';
-      switch (!false) {
+      switch (true) {
         case (args[0] === array[1] && args[1] === array[0])
                       || (args[0] === array[2] && args[1] === array[1])
                       || (args[0] === array[0] && args[1] === array[2]):
@@ -61,14 +64,18 @@ const start = function game() {
 
     const rotate = function checkWinner() {
         let final = '';
-        while (!false) {
+        while (counter.state !== 'true') {
             final = play(getPlayerChoice(), getCpuChoice());
             // for debugging
             console.log(final);
-            if (counter.player > 2 || counter.cpu > 2) break;
+            if (counter.player > 2 || counter.cpu > 2) {
+                counter.state += 'true';
+            }
         }
         return final;
     };
   
    return `the final is: ${rotate()}`;
 };
+
+start();
