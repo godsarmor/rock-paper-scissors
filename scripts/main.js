@@ -7,75 +7,86 @@ console.log('Privet, Mir!');
 //based on its result, return one of the variables above
 
 //define a function playRound() with two args: playerChoice, computerChoice
-//playerSelection needs to be case-insensetive
+//playerSelection needs to be case-insensitive
 //return a string that declares the winner, use template literals
 //define variables for user input and computer input
 
 //define function game()
-//use playRound() inside than funcnion
-//use loop to make a five iterations and keep score in a variable
+//use playRound() inside than function
+//use loop to make five iterations and keep score in a variable
 //use console.log() to display results of each round
 
 const start = function game() {
-    const array = ['ROCK', 'PAPER', 'SCISSORS'];
+    const item = ['ROCK', 'PAPER', 'SCISSORS'];
     const counter = {
       player: 0,
       cpu: 0,
-      state: ''
-    };
-  
-    const getPlayerChoice = () => {
-        return window.prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
+      state: true
     };
 
+    const getPlayerChoice = () => prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
+
     const getCpuChoice = () => {
-      const random = Math.floor(Math.random() * array.length);
-      return array[random];
+      const random = Math.floor(Math.random() * item.length);
+      return item[random];
     };
   
     const play = function playRound(...args) {
       let combination = '';
+
       switch (true) {
-        case (args[0] === array[1] && args[1] === array[0])
-                      || (args[0] === array[2] && args[1] === array[1])
-                      || (args[0] === array[0] && args[1] === array[2]):
+        case (args[0] === item[1] && args[1] === item[0])
+                      || (args[0] === item[2] && args[1] === item[1])
+                      || (args[0] === item[0] && args[1] === item[2]):
   
           counter.player += 1;
           combination += `You win, ${args[0]} beats ${args[1]}!`;
           break;
   
-        case (args[0] === array[1] && args[1] === array[2])
-                      || (args[0] === array[2] && args[1] === array[0])
-                      || (args[0] === array[0] && args[1] === array[1]):
+        case (args[0] === item[1] && args[1] === item[2])
+                      || (args[0] === item[2] && args[1] === item[0])
+                      || (args[0] === item[0] && args[1] === item[1]):
   
           counter.cpu += 1;
           combination += `You lose, ${args[1]} beats ${args[0]}!`;
           break;
   
         case args[0] === args[1]:
-          return 'It\'s a tie!';
+          return 'Draw!';
   
         default:
           return 'error: Wrong value!';
       }
-  
       return `End of round! ${combination}`;
     };
 
-    const rotate = function checkWinner() {
-        let final = '';
-        while (counter.state !== 'true') {
-            final = play(getPlayerChoice(), getCpuChoice());
-            // for debugging
-            console.log(final);
-            if (counter.player > 2 || counter.cpu > 2) {
-                counter.state += 'true';
-            }
+    const next = function continueGame() {
+      let final = '';
+      let iteration = '';
+
+      while (counter.state !== false) {
+        iteration = play(getPlayerChoice(), getCpuChoice());
+
+        let alert = (check, positive, result) => {
+          if (check) positive();
+          else result() 
+        };
+        alert(
+          (counter.player < 1 && counter.cpu < 1),
+          () => console.log('computing...'),
+          () => console.log(iteration)
+        );
+
+        if (counter.player > 2 || counter.cpu > 2) {
+          counter.state = false;
+          final = (counter.player > 2) ?
+            'you win' :
+            'you lose';
         }
-        return final;
+      }
+      return final;
     };
-  
-   return `the final is: ${rotate()}`;
+    return `Final result: ${next()}!`;
 };
 
-start();
+//console.log(start());
