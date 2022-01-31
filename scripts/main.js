@@ -16,7 +16,7 @@ console.log('Privet, Mir!');
 //use loop to make five iterations and keep score in a variable
 //use console.log() to display results of each round
 
-const start = function game() {
+const game = function() {
     const item = ['ROCK', 'PAPER', 'SCISSORS'];
     const counter = {
       player: 0,
@@ -24,69 +24,80 @@ const start = function game() {
       state: true
     };
 
-    const getPlayerChoice = () => prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
+    const container = document.querySelector('.container');
+
+    const getPlayerChoice = () => {
+      let playerName;
+      do {
+        playerName = prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
+      } while (!playerName);
+      return playerName;
+    };
 
     const getCpuChoice = () => {
       const random = Math.floor(Math.random() * item.length);
       return item[random];
     };
   
-    const play = function playRound(...args) {
-      let combination = '';
+    const playRound = function(...args) {
+      let combination;
 
       switch (true) {
         case (args[0] === item[1] && args[1] === item[0])
                       || (args[0] === item[2] && args[1] === item[1])
                       || (args[0] === item[0] && args[1] === item[2]):
-  
+          
           counter.player += 1;
           combination += `You win, ${args[0]} beats ${args[1]}!`;
           break;
-  
+        
         case (args[0] === item[1] && args[1] === item[2])
                       || (args[0] === item[2] && args[1] === item[0])
                       || (args[0] === item[0] && args[1] === item[1]):
-  
+
           counter.cpu += 1;
           combination += `You lose, ${args[1]} beats ${args[0]}!`;
           break;
-  
+
         case args[0] === args[1]:
           return 'Draw!';
-  
+
         default:
           return 'error: Wrong value!';
       }
       return `End of round! ${combination}`;
     };
 
-    const next = function continueGame() {
-      let final = '';
-      let iteration = '';
+    const nextRound = function() {
+      let final;
+      let iteration;
 
       while (counter.state !== false) {
-        iteration = play(getPlayerChoice(), getCpuChoice());
+        const par = document.createElement('p');
+        par.classList.add('content');
 
-        let alert = (check, positive, result) => {
-          if (check) positive();
-          else result() 
+        iteration = playRound(getPlayerChoice(), getCpuChoice());
+
+        let alert = (check, result) => {
+          if (check) result();
         };
         alert(
           (counter.player < 1 && counter.cpu < 1),
-          () => console.log('computing...'),
-          () => console.log(iteration)
+          () => (par.textContent = iteration)
         );
-
+        
+        container.appendChild(par);
+        
         if (counter.player > 2 || counter.cpu > 2) {
           counter.state = false;
           final = (counter.player > 2) ?
-            'you win' :
-            'you lose';
+          'you win' :
+          'you lose'
         }
       }
       return final;
     };
-    return `Final result: ${next()}!`;
+    return `Final result: ${nextRound}!`;
 };
 
-//console.log(start());
+game();
