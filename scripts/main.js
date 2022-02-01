@@ -16,7 +16,7 @@ console.log('Privet, Mir!');
 //use loop to make five iterations and keep score in a variable
 //use console.log() to display results of each round
 
-const getPlayerChoice = function() {
+const getPlayerChoice = function () {
   let playerName;
   do {
     playerName = prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
@@ -24,73 +24,70 @@ const getPlayerChoice = function() {
   return playerName;
 };
 
-const game = function() {
-    const item = ['ROCK', 'PAPER', 'SCISSORS'];
-    
-    const container = document.querySelector('.container');
-    const counter = {
-      player: 0,
-      cpu: 0,
-      state: true
-    };
-    
-    const getCpuChoice = () => {
-      const random = Math.floor(Math.random() * item.length);
-      return item[random];
-    };
+const game = function () {
+  const item = ['ROCK', 'PAPER', 'SCISSORS'];
+  const container = document.body.getElementsByTagName('div')[0];
+  const counter = {
+    player: 0,
+    cpu: 0,
+    state: true
+  };
 
-    const playRound = function(...args) {
-      switch (true) {
-        case (args[0] === item[1] && args[1] === item[0])
-                      || (args[0] === item[2] && args[1] === item[1])
-                      || (args[0] === item[0] && args[1] === item[2]):
-          
-          counter.player += 1;
-          return `You win, ${args[0]} beats ${args[1]}!`;
-        
-        case (args[0] === item[1] && args[1] === item[2])
-                      || (args[0] === item[2] && args[1] === item[0])
-                      || (args[0] === item[0] && args[1] === item[1]):
+  const getCpuChoice = () => {
+    const random = Math.floor(Math.random() * item.length);
+    return item[random];
+  };
 
-          counter.cpu += 1;
-          return `You lose, ${args[1]} beats ${args[0]}!`;
+  const playRound = function (...args) {
+    switch (true) {
+      case (args[0] === item[1] && args[1] === item[0])
+        || (args[0] === item[2] && args[1] === item[1])
+        || (args[0] === item[0] && args[1] === item[2]):
 
-        case args[0] === args[1]:
-          return 'Draw!';
+        counter.player += 1;
+        return `You win, ${args[0]} beats ${args[1]}!`;
 
-        default:
-          return 'error: Wrong value!';
-      }
-    };
+      case (args[0] === item[1] && args[1] === item[2])
+        || (args[0] === item[2] && args[1] === item[0])
+        || (args[0] === item[0] && args[1] === item[1]):
 
-    const nextRound = function() {
-      let tryAgain;
-      let final;
+        counter.cpu += 1;
+        return `You lose, ${args[1]} beats ${args[0]}!`;
 
-      while (counter.state !== false) {
-        const par = document.createElement('p');
-        
-        par.textContent = playRound(getPlayerChoice(), getCpuChoice());
-        container.appendChild(par);
-        
-        if (counter.player > 2 || counter.cpu > 2) {
-          counter.state = false;
-          final = (counter.player > 2) ?
-            'Win!' :
-            'Defeat!';
+      case args[0] === args[1]:
+        return 'Draw!';
 
-          if (final === 'Defeat!') {
-            do {
-              tryAgain = prompt('Try again? yes/no');
-            } while (!tryAgain)
-            
-            if (tryAgain === 'yes') game();
-            else return final;
-          }
-        }
+      default:
+        return 'error: Wrong value!';
+    }
+  };
+
+  const nextRound = function () {
+    let final;
+
+    while (counter.state !== false) {
+      const para = document.createElement('p');
+      para.classList.add('result');
+      para.textContent = playRound(getPlayerChoice(), getCpuChoice());
+      container.appendChild(para);
+
+      if (counter.player > 1 || counter.cpu > 1) {
+        counter.state = false;
+        final = (counter.player > 1) ?
+          'Win!' :
+          'Defeat!';
       }
     }
-  return nextRound();
+    return final;
+  };
+
+  const printResult = function (text) {
+    const output = document.createElement('p');
+    output.textContent = text;
+    return container.appendChild(output);
+  };
+
+  return printResult(nextRound());
 };
 
 game();
