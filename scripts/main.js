@@ -16,6 +16,14 @@ console.log('Privet, Mir!');
 //use loop to make five iterations and keep score in a variable
 //use console.log() to display results of each round
 
+const getPlayerChoice = function() {
+  let playerName;
+  do {
+    playerName = prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
+  } while (!playerName);
+  return playerName;
+};
+
 const game = function() {
     const item = ['ROCK', 'PAPER', 'SCISSORS'];
     
@@ -25,21 +33,12 @@ const game = function() {
       cpu: 0,
       state: true
     };
-
-    const getPlayerChoice = () => {
-      let playerName;
-      
-      do {
-        playerName = prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
-      } while (!playerName);
-      return playerName;
-    };
-
+    
     const getCpuChoice = () => {
       const random = Math.floor(Math.random() * item.length);
       return item[random];
     };
-  
+
     const playRound = function(...args) {
       switch (true) {
         case (args[0] === item[1] && args[1] === item[0])
@@ -65,23 +64,33 @@ const game = function() {
     };
 
     const nextRound = function() {
+      let tryAgain;
       let final;
 
-      while (counter.state !== false) {  
+      while (counter.state !== false) {
         const par = document.createElement('p');
+        
         par.textContent = playRound(getPlayerChoice(), getCpuChoice());
         container.appendChild(par);
         
         if (counter.player > 2 || counter.cpu > 2) {
           counter.state = false;
           final = (counter.player > 2) ?
-          'You win' :
-          'You lose'
+            'Win!' :
+            'Defeat!';
+
+          if (final === 'Defeat!') {
+            do {
+              tryAgain = prompt('Try again? yes/no');
+            } while (!tryAgain)
+            
+            if (tryAgain === 'yes') game();
+            else return final;
+          }
         }
       }
-      return final;
-    };
-    return `Final result: ${nextRound()}!`;
+    }
+  return nextRound();
 };
 
-//game();
+game();
