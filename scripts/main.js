@@ -71,11 +71,11 @@ const game = function () {
       para.textContent = playRound(getPlayerChoice(), getCpuChoice());
       container.appendChild(para);
 
-      if (counter.player > 1 || counter.cpu > 1) {
+      if (counter.player > 4 || counter.cpu > 4) {
         counter.state = false;
-        final = (counter.player > 1) ?
-          'Win!' :
-          'Defeat!';
+        final = (counter.cpu > 4) ?
+          'Defeat!' :
+          'Win!';
       }
     }
     return final;
