@@ -67,9 +67,9 @@ const game = function() {
 
     while (counter.state !== false) {
       const para = document.createElement('div');
-      para.classList.add('result');
+      para.classList.add('turn');
       para.textContent = playRound(getPlayerChoice(), getCpuChoice());
-      container.appendChild(para);
+      content.appendChild(para);
 
       if (counter.player > 4 || counter.cpu > 4) {
         counter.state = false;
@@ -82,12 +82,14 @@ const game = function() {
   };
 
   const printResult = function(text) {
+    // print final result in <div>
     const output = document.createElement('div');
     output.textContent = text;
-    return container.appendChild(output);
+    output.classList.add('result');
+    return content.appendChild(output);
   };
 
   return printResult(nextRound());
 };
 
-game();
+// game();
