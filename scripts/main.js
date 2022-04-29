@@ -16,7 +16,7 @@ console.log('Privet, Mir!');
 //use loop to make five iterations and keep score in a variable
 //use console.log() to display results of each round
 
-const getPlayerChoice = function () {
+const getPlayerChoice = function() {
   let playerName;
   do {
     playerName = prompt('ROCK, PAPER or SCISSORS?').toUpperCase();
@@ -24,7 +24,7 @@ const getPlayerChoice = function () {
   return playerName;
 };
 
-const game = function () {
+const game = function() {
   const item = ['ROCK', 'PAPER', 'SCISSORS'];
   const container = document.body.getElementsByTagName('div')[0];
   const counter = {
@@ -38,7 +38,7 @@ const game = function () {
     return item[random];
   };
 
-  const playRound = function (...args) {
+  const playRound = function(...args) {
     switch (true) {
       case (args[0] === item[1] && args[1] === item[0])
         || (args[0] === item[2] && args[1] === item[1])
@@ -62,11 +62,11 @@ const game = function () {
     }
   };
 
-  const nextRound = function () {
+  const nextRound = function() {
     let final;
 
     while (counter.state !== false) {
-      const para = document.createElement('p');
+      const para = document.createElement('div');
       para.classList.add('result');
       para.textContent = playRound(getPlayerChoice(), getCpuChoice());
       container.appendChild(para);
@@ -81,8 +81,8 @@ const game = function () {
     return final;
   };
 
-  const printResult = function (text) {
-    const output = document.createElement('p');
+  const printResult = function(text) {
+    const output = document.createElement('div');
     output.textContent = text;
     return container.appendChild(output);
   };
